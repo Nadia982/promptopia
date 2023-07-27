@@ -12,12 +12,14 @@ const Nav = () => {
 
   const [providers, setProviders] = useState(null);
 
-useEffect(()=> {
-  const setProviders = async () => { 
-    const providers = await getProviders(); 
-    setProviders(response); };
+
+  useEffect(() => {
+    const setProviders = async () => {
+      const providers = await getProviders();
+      setProviders(response);
+    };
     setProviders();
-}, [])
+  }, []);
 
   return (
     <nav className="flex-between w-full mb-16 pt-3">
@@ -35,29 +37,67 @@ useEffect(()=> {
       <div className="sm:flex hidden">
         {isUserLoggedIn ? (
           <div className="flex gap-3 md: gap-5">
-            <Link href="/create-prompt"
-            className="black_btn">Create Post</Link>
-            <button type="button" onClick={signOut} className="outline_btn">Sign out</button>
+            <Link href="/create-prompt" className="black_btn">
+              Create Post
+            </Link>
+            <button type="button" onClick={signOut} className="outline_btn">
+              Sign out
+            </button>
             <Link href="/profile">
-              <Image src="/assets/images/logo.svg" width={37} height={37} className="rounded-full" alt="profile"/>
+              <Image
+                src="/assets/images/logo.svg"
+                width={37}
+                height={37}
+                className="rounded-full"
+                alt="profile"
+              />
             </Link>
           </div>
         ) : (
           <>
-          {providers && Object.values(providers).map((provider) => (
-            <button 
-            type="button" 
-            key={provider.name} 
-            onClick={()=>signIn(provider.id)} 
-            className="black_btn">
-              Sign In
-            </button>
-          ))}
-          
+            {providers &&
+              Object.values(providers).map((provider) => (
+                <button
+                  type="button"
+                  key={provider.name}
+                  onClick={() => signIn(provider.id)}
+                  className="black_btn"
+                >
+                  Sign In
+                </button>
+              ))}
           </>
         )}
       </div>
-      
+      {/* Mobile Navigation */}
+      <div className="sm:hidden flex relative">
+        {isUserLoggedIn ? (
+          <div className="flex">
+            <Image
+              src="/assets/images/logo.svg"
+              width={37}
+              height={37}
+              className="rounded-full"
+              alt="profile"
+              onClick={() => {}}
+            />
+          </div>
+        ) : (
+          <>
+            {providers &&
+              Object.values(providers).map((provider) => (
+                <button
+                  type="button"
+                  key={provider.name}
+                  onClick={() => signIn(provider.id)}
+                  className="black_btn"
+                >
+                  Sign In
+                </button>
+              ))}
+          </>
+        )}
+      </div>
     </nav>
   );
 };
