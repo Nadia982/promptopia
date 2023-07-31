@@ -7,7 +7,7 @@ const Provider = ({session, children}) => {
     <sessionProvider session={session}>
       {children}
     </sessionProvider>
-  )
+  ) 
 }
 
 export default Provider;
